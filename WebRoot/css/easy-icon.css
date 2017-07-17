@@ -1,0 +1,48 @@
+/*管理目录*/
+.icon-guanli {
+	background:url('../images/icons/cog.png') no-repeat center center;
+}
+/*功能设置*/
+.icon-gnsz {
+	background:url('../images/icons/application_edit.png') no-repeat center center;
+}
+/*功能列表*/
+.icon-gnlb {
+	background:url('../images/icons/application_view_list.png') no-repeat center center;
+}
+/*功能编辑*/
+.icon-gnbj {
+	background:url('../images/icons/cog_edit.png') no-repeat center center;
+}
+/*模块*/
+.icon-mk {
+	background:url('../images/icons/note.png') no-repeat center center;
+}
+/*属性*/
+.icon-sx {
+	background:url('../images/icons/page_white_code.png') no-repeat center center;
+}
+/*图片*/
+.icon-tp {
+	background:url('../images/icons/photo.png') no-repeat center center;
+}
+/*视频*/
+.icon-sp {
+	background:url('../images/icons/monitor.png') no-repeat center center;
+}
+/*地图定位*/
+.icon-dtdw {
+	background:url('../images/icons/dzlq.png') no-repeat center center;
+}
+/*清空*/
+.icon-qk {
+	background:url('../images/icons/reset.png') no-repeat center center;
+}
+/*审核通过*/
+.icon-shtg {
+	background:url('../images/icons/accept.png') no-repeat center center;
+}
+/*审核不通过*/
+.icon-shbtg {
+	background:url('../images/icons/delete.png') no-repeat center center;
+}

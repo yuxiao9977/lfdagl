@@ -1,0 +1,37 @@
+.navbar-blue {
+  	border:none;
+  	background: #194a65;
+  	color:#e1e1e1;
+}
+.navbar-blue .navbar-nav > li > a {
+	background: #194a65;
+	color:#e1e1e1;
+}
+.navbar-blue .navbar-nav > li > a.active {
+	background: #003654;
+	color:#e1e1e1;
+}
+.navbar-blue .navbar-nav > li > a:hover {
+	background: #003654;
+	color:#e1e1e1;
+}
+.navbar-blue .navbar-nav > li > a:focus {
+	background: #003654;
+	color:#e1e1e1;
+}
+
+.list-group-item-blue {
+  color: #e1e1e1;
+  background-color: #194a65;
+  border:none;
+}
+a.list-group-item-blue,
+button.list-group-item-blue {
+  color: #e1e1e1;
+}
+a.list-group-item-blue:hover,
+button.list-group-item-blue:hover {
+  color: #e1e1e1;
+  background-color: #003654;
+}
+
