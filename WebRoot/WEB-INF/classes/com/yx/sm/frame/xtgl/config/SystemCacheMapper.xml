@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 规范要求：需要添加查询缓存的数据库操作均放在 ***CacheMapper.xml里定义 -->
+<mapper namespace="xtCacheMapper"><cache type="org.mybatis.caches.oscache.OSCache" />
+	
+</mapper>

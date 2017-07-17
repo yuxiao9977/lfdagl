@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xtglMapper">
+
+    <!-- 用户名密码查询用户 -->
+	<select id="getUserByNamePwd" parameterType="map" resultType="com.yx.sm.frame.xtgl.vo.UserVO">
+		select * from t_user where userid=#{userid} and password=#{password}
+	</select>
+	
+	<!-- 分页查询用户 -->
+	<select id="getUserByPage" parameterType="map" resultType="com.yx.sm.frame.xtgl.vo.UserVO">
+		select * from t_user where 1=1
+		<if test="uid!=null and uid!=''">and (username like '%${uid}%' or userid=#{uid})</if>
+		order by state desc limit ${startRow},${rows}
+	</select>
+	
+	<!-- 分页查询用户总数 -->
+	<select id="getUserByPageTotal" parameterType="map" resultType="int">
+		select count(*) from t_user where 1=1
+		<if test="uid!=null and uid!=''">and (username like '%${uid}%' or userid=#{uid})</if>
+	</select>
+	
+	<!-- 用户名查询用户 -->
+	<select id="getUserByUserid" parameterType="com.yx.sm.frame.xtgl.vo.UserVO" resultType="com.yx.sm.frame.xtgl.vo.UserVO">
+		select * from t_user where userid=#{userid}
+	</select>
+	
+	<!-- 添加用户 -->
+	<select id="addUser" parameterType="com.yx.sm.frame.xtgl.vo.UserVO">
+		insert into t_user(id,userid,password,username,dw,bm,zw,bgdh,lxdh,lxdz,isgly,email,xb,state) values 
+		(#{id},#{userid},#{password},#{username},#{dw},#{bm},#{zw},#{bgdh},#{lxdh},#{lxdz},#{isgly},#{email},#{xb},'1')
+	</select>
+	
+	<!-- 更新用户 -->
+	<select id="updUser" parameterType="com.yx.sm.frame.xtgl.vo.UserVO">
+		update t_user set password=#{password},username=#{username},
+		dw=#{dw},bm=#{bm},zw=#{zw},bgdh=#{bgdh},lxdh=#{lxdh},lxdz=#{lxdz},isgly=#{isgly},
+		email=#{email},xb=#{xb} where id=#{id}
+	</select>
+	
+	<!-- 更新密码 -->
+	<select id="updUserPwd" parameterType="map">
+		update t_user set password=#{password} where id=#{id}
+	</select>
+	
+	<!-- 修改审核状态 -->
+	<select id="updUserState" parameterType="com.yx.sm.frame.xtgl.vo.UserVO">
+		update t_user set state=#{state} where id=#{id}
+	</select>
+	
+	<!-- 删除用户By id -->
+	<select id="delUserById" parameterType="com.yx.sm.frame.xtgl.vo.UserVO">
+		delete from t_user where id=#{id}
+	</select>
+	
+	<!-- 查询模块By id -->
+	<select id="getModuleById" parameterType="com.yx.sm.frame.xtgl.vo.ModuleVO" resultType="com.yx.sm.frame.xtgl.vo.ModuleVO">
+		select * from t_module where id=#{id}
+	</select>
+	
+	<!-- 查询模块By parentid -->
+	<select id="getModuleByParentid" parameterType="com.yx.sm.frame.xtgl.vo.ModuleVO" resultType="com.yx.sm.frame.xtgl.vo.ModuleVO">
+		select * from t_module where parentid=#{parentid} order by wz
+	</select>
+	
+	<!-- 添加模块 -->
+	<select id="addModule" parameterType="com.yx.sm.frame.xtgl.vo.ModuleVO">
+		insert into t_module(id,mname,parentid,wz) values (#{id},#{mname},#{parentid},#{wz})
+	</select>
+	
+	<!-- 修改模块 -->
+	<select id="updModuleById" parameterType="com.yx.sm.frame.xtgl.vo.ModuleVO">
+		update t_module set mname=#{mname},wz=#{wz} where id=#{id}
+	</select>
+	
+	<!-- 删除模块 -->
+	<select id="delModuleById" parameterType="com.yx.sm.frame.xtgl.vo.ModuleVO">
+		delete from t_module where id=#{id}
+	</select>
+	
+	<!-- ############################################属性#######################################  -->
+	<!-- 查询属性By mid -->
+	<select id="getPropertyByMid" parameterType="com.yx.sm.frame.xtgl.vo.PropertyVO" resultType="com.yx.sm.frame.xtgl.vo.PropertyVO">
+		select * from t_property where mid=#{mid} order by wz
+	</select>
+	
+	<!-- 查询属性名称是否存在By mid -->
+	<select id="getPropertyNameCountByMid" parameterType="com.yx.sm.frame.xtgl.vo.PropertyVO" resultType="int">
+		select count(*) from t_property where mid=#{mid} and wz=0
+	</select>
+	
+	<!-- 查询属性最大字段位置By mid -->
+	<select id="getPropertyMaxZdwzByMid" parameterType="com.yx.sm.frame.xtgl.vo.PropertyVO" resultType="Integer">
+		select max(zdwz) from t_property where mid=#{mid}
+	</select>
+	
+	<!-- 添加属性 -->
+	<select id="addProperty" parameterType="com.yx.sm.frame.xtgl.vo.PropertyVO">
+		insert into t_property(id,pname,mid,wz,zdwz,zdmc) values (#{id},#{pname},#{mid},#{wz},#{zdwz},#{zdmc})
+	</select>
+	
+	<!-- 修改属性 -->
+	<select id="updPropertyById" parameterType="com.yx.sm.frame.xtgl.vo.PropertyVO">
+		update t_property set pname=#{pname},wz=#{wz} where id=#{id}
+	</select>
+	
+	<!-- 删除属性 -->
+	<select id="delPropertyById" parameterType="com.yx.sm.frame.xtgl.vo.PropertyVO">
+		delete from t_property where id=#{id}
+	</select>
+	
+	<!--########################################附件########################################-->
+	<!-- 分页查询图片视频 -->
+	<select id="getFJByPage" parameterType="map" resultType="com.yx.sm.frame.xtgl.vo.DafileVO">
+		select * from t_dafile where type=#{type}
+		<if test="fname!=null and fname!=''">and (fname like '%${fname}%' or ms like '%${fname}%')</if>
+		<if test="mid=='-1'">and mid is null</if>
+		<if test="mid!='-1'">and mid=#{mid}</if>
+		order by cjsj desc limit ${startRow},${rows}
+	</select>
+	
+	<!-- 分页查询图片视频 -->
+	<select id="getFJByPageTotal" parameterType="map" resultType="int">
+		select count(*) from t_dafile where type=#{type}
+		<if test="mid=='-1'">and mid is null</if>
+		<if test="mid!='-1'">and mid=#{mid}</if>
+		<if test="fname!=null and fname!=''">and (fname like '%${fname}%' or ms like '%${fname}%')</if>
+	</select>
+	
+	<!-- 添加附件 -->
+	<select id="addFJ" parameterType="com.yx.sm.frame.xtgl.vo.DafileVO">
+		insert into t_dafile(id,fname,ms,fpath,syfpath,type,cjr,cjsj,mid) values(#{id},#{fname},#{ms},#{fpath},#{syfpath},#{type},#{cjr},now(),#{mid})
+	</select>
+	
+	<!-- 修改附件 -->
+	<select id="updFJ" parameterType="com.yx.sm.frame.xtgl.vo.DafileVO">
+		update t_dafile set fname=#{fname},ms=#{ms},mid=#{mid} where id=#{id}
+	</select>
+	
+	<!-- 删除附件 -->
+	<select id="delFJ" parameterType="com.yx.sm.frame.xtgl.vo.DafileVO">
+		delete from t_dafile where id=#{id}
+	</select>
+	
+	<!--########################################数据########################################-->
+	<!-- 分页查询数据 -->
+	<select id="getDataByPage" parameterType="map" resultType="com.yx.sm.frame.xtgl.vo.DataVO">
+		select * from t_data where mid=#{mid}
+		<if test="mc!=null and mc!=''">and mc like '%${mc}%'</if>
+		<if test="map!=null and map!=''">and x!='' and y!=''</if>
+		order by wz limit ${startRow},${rows}
+	</select>
+	
+	<!-- 分页查询数据统计 -->
+	<select id="getDataByPageTotal" parameterType="map" resultType="int">
+		select count(*) from t_data where mid=#{mid}
+		<if test="mc!=null and mc!=''">and mc like '%${mc}%'</if>
+		<if test="map!=null and map!=''">and x!='' and y!=''</if>
+	</select>
+	
+	<!-- 查询数据ById -->
+	<select id="getDataById" parameterType="map" resultType="com.yx.sm.frame.xtgl.vo.DataVO">
+		select * from t_data where id=#{id}
+	</select>
+	
+	<!-- 添加数据 -->
+	<select id="addData" parameterType="map">
+		insert into t_data(${colnames}) values(${colvalues})
+	</select>
+	
+	<!-- 修改数据 -->
+	<select id="updData" parameterType="map">
+		update t_data set ${setValues} where id=#{id}
+	</select>
+	
+	<!-- 修改数据By模块ID -->
+	<select id="updDataByMid" parameterType="map">
+		update t_data set ${setValues} where mid=#{mid}
+	</select>
+	
+	<!-- 删除数据 -->
+	<select id="delData" parameterType="map">
+		delete from t_data where id=#{id}
+	</select>
+	
+	<!-- 查询数据文件 -->
+	<select id="getDataFile" parameterType="com.yx.sm.frame.xtgl.vo.DatafileRelVO" resultType="com.yx.sm.frame.xtgl.vo.DafileVO">
+		SELECT d.* FROM t_data_file df,t_dafile d where d.id=df.fileid and df.dataid=#{dataid}
+	</select>
+	
+	<!-- 添加数据文件 -->
+	<select id="addDataFile" parameterType="com.yx.sm.frame.xtgl.vo.DatafileRelVO">
+		insert into t_data_file(id,dataid,fileid,ftype) values(#{id},#{dataid},#{fileid},#{ftype})
+	</select>
+	
+	<!-- 删除数据文件 -->
+	<select id="delDataFile" parameterType="com.yx.sm.frame.xtgl.vo.DatafileRelVO">
+		delete from t_data_file where dataid=#{dataid}
+	</select>
+	
+	<!-- 删除数据文件by文件id -->
+	<select id="delDataFileByFileid" parameterType="com.yx.sm.frame.xtgl.vo.DatafileRelVO">
+		delete from t_data_file where fileid=#{fileid}
+	</select>
+	
+	<!-- #####################################日志管理###################################### -->
+	<!-- 分页查询日志 -->
+	<select id="getLogByPage" parameterType="map" resultType="com.yx.sm.frame.xtgl.vo.DalogVO">
+		select * from t_log where 1=1
+		<if test="userid!=null and userid!=''">and userid=#{userid}</if>
+		<if test="content!=null and content!=''">and content like '%${content}%'</if>
+		<if test="ip!=null and ip!=''">and ip like '%${ip}%'</if>
+		<if test="type!=null and type!=''">and type=#{type}</if>
+		<if test="kssj!=null and kssj!=''"><![CDATA[and logtime>=str_to_date('${kssj}','%Y-%m-%d %H:%i:%s')]]></if>
+		<if test="jssj!=null and jssj!=''"><![CDATA[and logtime<=str_to_date('${jssj}','%Y-%m-%d %H:%i:%s')]]></if>
+		order by logtime desc limit ${startRow},${rows}
+	</select>
+	
+	<!-- 分页查询日志总数 -->
+	<select id="getLogByPageTotal" parameterType="map" resultType="int">
+		select count(*) from t_log where 1=1
+		<if test="userid!=null and userid!=''">and userid=#{userid}</if>
+		<if test="content!=null and content!=''">and content like '%${content}%'</if>
+		<if test="ip!=null and ip!=''">and ip like '%${ip}%'</if>
+		<if test="type!=null and type!=''">and type=#{type}</if>
+		<if test="kssj!=null and kssj!=''"><![CDATA[and logtime>=str_to_date('${kssj}','%Y-%m-%d %H:%i:%s')]]></if>
+		<if test="jssj!=null and jssj!=''"><![CDATA[and logtime<=str_to_date('${jssj}','%Y-%m-%d %H:%i:%s')]]></if>
+	</select>
+	
+	<!-- 添加日志 -->
+	<select id="addLog" parameterType="com.yx.sm.frame.xtgl.vo.DalogVO">
+		insert into t_log(id,userid,content,ip,logtime,type) values(#{id},#{userid},#{content},#{ip},now(),#{type})
+	</select>
+	
+</mapper>
